@@ -10,6 +10,7 @@ using namespace std;
 int main()
 {
 	int house[5][8];
+	int house_ap_num[5][8];
 	int menu = 0;
 	int ap_num = 0;
 	int en_num = 0;
@@ -20,19 +21,39 @@ int main()
 	int a = 0, b = 2;
 	int another = 0;
 
-
+	/*========|| Array generating ||=========*/
 	for (int i = 0; i < 5; i++)
 	{
 		for (int c = 0; c < 8; c++)
 		{
 			house[i][c] = rand() % 7 + 0;
+
 		}
 	}
 	
 	while (true)
 	{
 		system("cls");
+	/*
+	  ===============|| Painting  table ||===================
+	
+		Entrance        1       2       3       4
 
+        Floor 5         1 2     0 4     5 0     4 3
+        Floor 4         5 6     5 5     6 1     1 5
+        Floor 3         6 0     4 4     2 2     3 6
+        Floor 2         5 6     0 5     6 6     0 1
+        Floor 1         6 1     6 5     3 2     5 0
+	
+	*/
+		/*  Entrance        1       2         3        4
+
+			Floor 5         9 10    19 20     29 30    39 40
+			Floor 4         7 8     17 18     27 28    37 38
+			Floor 3         5 6     15 16     25 26    35 36
+			Floor 2         3 4     13 14     23 24    33 34
+			Floor 1         1 2     11 12     21 22    31 32
+			*/
 		cout << "\n\tEntrance\t1\t2\t3\t4\n\n\t";
 
 		for (int i = 4; i >= 0; i--)
@@ -42,8 +63,8 @@ int main()
 			cout << "Floor " << n << "\t\t";
 			for (int c = 0; c < 8; c++)
 			{
-				cout << house[i][c] << " ";
-
+				cout << house_ap_num[i][c] << " ";
+				
 				if (c % 2)
 				{
 					cout << "\t";
@@ -51,29 +72,33 @@ int main()
 			}
 			cout << "\n\t";
 		}
+
+		/*===============|| Menu Options ||===================*/
+
 		cout << "\n\t1 -- Determine the number of residents and their neighbors living on the same floor by the selected apartment number;";
 		cout << "\n\t2 -- Determine the total number of residents for each entrance;";
 		cout << "\n\t3 -- Determine apartment numbers where large families live.\n\t";	cin >> menu;
 
 		switch (menu)
 		{
-		case 1:
+		case 1:	/*===============|| Determine the number of residents and their neighbors ||===================*/
+
 			cout << "\n\tEnter the apartment number\n\t"; cin >> ap_num;
 
 			a = 0;
 			b = 2;
 			k = 0;
 
-			for (int f = 0; f < 4; f++)
+			for (int f = 0; f < 4; f++)	// Entrance
 			{
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < 5; i++)	// Floor 
 				{
 					for (int c = a; c < b; c++)
 					{
 						k++;
-						if (k == ap_num)
+						if (k == ap_num) //apartment number
 						{
-							residents = house[i][c];
+							residents = house[i][c];	// Residents in curent apartments
 							
 							if (c % 2)
 							{
@@ -91,6 +116,9 @@ int main()
 				a += 2;
 				b += 2;
 			}
+			
+			/*===============|| response to the request ||===================*/
+
 			cout << "\n\n\tResidents in apartment number " << ap_num << " is " << residents << " persons";
 			cout << "\n\tTheir neighbors from apartment number " << nbap_num << " is " << neighbors << " persons";
 			cout << "\n\tTotal persons in the floor: " << residents + neighbors << " persons";
@@ -98,16 +126,18 @@ int main()
 
 			break;
 		case 2:
+			/*===============|| Determine the total number of residents for each entrance ||===================*/
+
 
 			a = 0;
 			b = 2;
 			k = 1;
 
-			for (int f = 0; f < 4; f++)
+			for (int f = 0; f < 4; f++)// Entrance
 			{
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < 5; i++)// Floor 
 				{
-					for (int c = a; c < b; c++)
+					for (int c = a; c < b; c++)// Residents
 					{
 						residents += house[i][c];
 					}
@@ -120,19 +150,21 @@ int main()
 			cout << "\n\n\t0 -- Another option\n\t";	cin >> another;
 			break;
 		case 3:
+			/*===============|| Determine apartment numbers where large families live ||===================*/
+
 			cout << "\n\tLarge families live apartments number: ";
 			a = 0;
 			b = 2;
 			k = 0;
 
-			for (int f = 0; f < 4; f++)
+			for (int f = 0; f < 4; f++)// Entrance
 			{
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < 5; i++)// Floor 
 				{
 					for (int c = a; c < b; c++)
 					{
 						k++;
-						if (house[i][c] > 5)
+						if (house[i][c] > 5) //Searching large families apartments number
 						{
 							cout << k << " ";
 						}

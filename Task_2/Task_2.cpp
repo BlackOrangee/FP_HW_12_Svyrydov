@@ -16,9 +16,11 @@ int main()
 
 	srand(time(NULL));
 
+	/*========|| Array generating ||=========*/
+
 	for (int i = 0; i < 31; i++)
 	{
-		int ran = rand() % 2 + 1;
+		int ran = rand() % 2 + 1; // chance of a negative temperature
 
 		if (ran == 2)
 		{
@@ -31,6 +33,7 @@ int main()
 			jan[i] = rand() % 15 + 0;
 		}
 	}
+
 
 	cout << "\n\n\tEnter the temperature what you interesting: ";	cin >> user_int_temp;
 	cout << "\n\n\t";
@@ -45,17 +48,17 @@ int main()
 			{
 				if (jan[k] <= user_int_temp)
 				{
-					bl_tmp_m++;
+					bl_tmp_m++;	//temperature dropped below for the specified label.
 				}
 				m_temp += jan[k];
 
-				cout << jan[k] << "\t";
-				k++;
+				cout << jan[k] << "\t";//Out calendar
+				k++;//Days
 			}
 		}
 		cout << "\n\t";
 	}
-	m_temp /= 31;
+	m_temp /= 31;//Average temperature
 
 	cout << "\n\n\tMidl temperature in January is " << m_temp;
 	cout << "\n\tThe temeratury was below a " << user_int_temp << " --> " << bl_tmp_m << " times\n\n\t";
